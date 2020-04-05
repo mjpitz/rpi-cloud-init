@@ -1,0 +1,89 @@
+#cloud-config
+
+## TEMAPLATE FILE FOR POPULATING
+## /var/lib/cloud/instances/nocloud/cloud-config.txt
+##
+## VARIABLES
+## - SSH_PUBLIC_KEY=
+## - HOST=
+## - STATIC_IP=
+## - WIFI_SSID=
+## - WIFI_PASSWORD=
+
+---
+
+##
+## Manage users and groups
+##
+ssh_pwauth: true
+
+chpasswd:
+  expire: false
+  list:
+  - ubuntu:ubuntu
+
+##
+## Install or update packages
+##
+packages:
+  - apt-transport-https
+  - avahi-daemon
+  - ca-certificates
+  - curl
+  - gnupg-agent
+  - software-properties-common
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true
+
+##
+## Configure hostname
+##
+preserve_hostname: false
+fqdn: ${HOST}.local
+hostname: ${HOST}
+
+##
+## Write out configuration files
+##
+write_files:
+  - path: /etc/docker/daemon.json
+    content: |
+      {
+        "log-driver": "json-file",
+        "log-opts": {
+          "max-size": "10m",    
+          "max-file": "3"    
+        }
+      }
+  - path: /home/ubuntu/.ssh/authorized_keys
+    owner: ubuntu:ubuntu
+    permissions: '0644'
+    content: |
+      ${SSH_PUBLIC_KEY}
+  - path: /etc/netplan/50-cloud-init.yaml
+    content: |
+      network:
+        version: 2
+        renderer: networkd
+        wifis:
+          wlan0:
+            dhcp4: no
+            dhcp6: no
+            addresses: [${STATIC_IP}/24]
+            gateway4: 192.168.1.1
+            nameservers:
+              addresses: [8.8.8.8, 8.8.4.4]
+            access-points:
+              "${WIFI_SSID}":
+                password: "${WIFI_PASSWORD}"
+
+##
+## Install Docker, force netplan and turn swapoff
+##
+runcmd:
+  - netplan --debug apply
+  - swapoff -a
+  - curl -fsSL https://get.docker.com | bash
+
+final_message: "The system is finally up after $UPTIME seconds"
