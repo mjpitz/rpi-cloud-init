@@ -1,26 +1,30 @@
 #cloud-config
 
-## TEMAPLATE FILE FOR POPULATING
-## /var/lib/cloud/instances/nocloud/cloud-config.txt
+## TEMAPLATE FILE FOR POPULATING USER-DATA
 ##
 ## VARIABLES
+## - ADMIN_USER=
 ## - SSH_PUBLIC_KEY=
 ## - HOST=
 ## - STATIC_IP=
-## - WIFI_SSID=
-## - WIFI_PASSWORD=
 
 ---
 
 ##
 ## Manage users and groups
 ##
-ssh_pwauth: true
-
 chpasswd:
   expire: false
   list:
-  - ubuntu:ubuntu
+    - ${ADMIN_USER}:${ADMIN_USER}
+
+users:
+  - name: ${ADMIN_USER}
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    lock_passwd: true
+    ssh_authorized_keys:
+    - "${SSH_PUBLIC_KEY}"
 
 ##
 ## Install or update packages
@@ -56,34 +60,13 @@ write_files:
           "max-file": "3"    
         }
       }
-  - path: /home/ubuntu/.ssh/authorized_keys
-    owner: ubuntu:ubuntu
-    permissions: '0644'
-    content: |
-      ${SSH_PUBLIC_KEY}
-  - path: /etc/netplan/50-cloud-init.yaml
-    content: |
-      network:
-        version: 2
-        renderer: networkd
-        wifis:
-          wlan0:
-            dhcp4: no
-            dhcp6: no
-            addresses: [${STATIC_IP}/24]
-            gateway4: 192.168.1.1
-            nameservers:
-              addresses: [8.8.8.8, 8.8.4.4]
-            access-points:
-              "${WIFI_SSID}":
-                password: "${WIFI_PASSWORD}"
 
 ##
 ## Install Docker, force netplan and turn swapoff
 ##
 runcmd:
-  - netplan --debug apply
   - swapoff -a
   - curl -fsSL https://get.docker.com | bash
+  - usermod -aG docker ${ADMIN_USER}
 
 final_message: "The system is finally up after $UPTIME seconds"

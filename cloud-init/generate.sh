@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+export ADMIN_USER=${ADMIN_USER:-mjpitz}
+
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
 
 readonly default_ssh_public_key_path="${HOME}/.ssh/id_rsa.pub"
@@ -21,6 +23,7 @@ function generate_host() {
     export STATIC_IP="${static_ip}"
     export UPTIME='$UPTIME'
 
+    envsubst < ${templates}/network-config.yaml > ${generated}/network-config
     envsubst < ${templates}/user-data.yaml > ${generated}/user-data
     envsubst < ${templates}/ssh > ${generated}/ssh
     envsubst < ${templates}/nobtcmd.txt > ${generated}/nobtcmd.txt
