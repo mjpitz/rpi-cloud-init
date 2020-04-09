@@ -20,7 +20,7 @@ fi
 
 kubectl create ns ${namespace}
 
-kubectl apply -f https://raw.githubusercontent.com/fluxcd/helm-operator/master/deploy/flux-helm-release-crd.yaml
+kubectl apply -f https://raw.githubusercontent.com/fluxcd/helm-operator/master/deploy/crds.yaml
 
 helm upgrade -i helm-operator fluxcd/helm-operator \
     --namespace ${namespace} \
