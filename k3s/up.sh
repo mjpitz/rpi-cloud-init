@@ -60,9 +60,9 @@ fi
     --node-label "topology.kubernetes.io/zone=${REGION}${zone}"
 
   config_file="${HOME}/.kube/${REGION}${zone}.yaml"
-  rm ${config_file}
+  rm -rf ${config_file}
   attempts=0
-  while [[ ! -e ${config_file} ]] && [[ $(( attempts )) -lt 31 ]]; do
+  while [[ ! -e ${config_file} ]] && [[ $(( attempts )) -lt 30 ]]; do
     attempts=$(( attempts + 1 ))
     echo "attempt ${attempts}"
     sleep 5
@@ -143,4 +143,4 @@ function start_zone() {
 
 start_zone a 192.168.1 50 54
 start_zone b 192.168.1 60 64 192.168.1.50
-start_zone c 192.168.1 70 74 192.168.1.60
+start_zone c 192.168.1 70 74 192.168.1.50
