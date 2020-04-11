@@ -20,6 +20,14 @@ fi
 
 kubectl create ns ${namespace}
 
+# echo "installing flux"
+# helm upgrade -i flux fluxcd/flux \
+#     --namespace ${namespace} \
+#     --set git.url=https://github.com/mjpitz/rpi-cloud-init.git \
+#     --set git.path=k8s \
+#     --set syncGarbageCollection.enabled=true    
+
+echo "installing helm-operator"
 kubectl apply -f https://raw.githubusercontent.com/fluxcd/helm-operator/master/deploy/crds.yaml
 
 helm upgrade -i helm-operator fluxcd/helm-operator \

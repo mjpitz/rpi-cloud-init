@@ -99,7 +99,7 @@ cat <<EOF
     --tmpfs "/var/run" \
     rancher/k3s:${K3S_VERSION} \
     agent \
-    --node-label "node.kubernetes.io/instance-type=rpi-3b+" \
+    --node-label "node.kubernetes.io/instance-type=rpi-3bplus" \
     --node-label "topology.kubernetes.io/region=${REGION}" \
     --node-label "topology.kubernetes.io/zone=${REGION}${zone}"
 EOF
@@ -116,7 +116,7 @@ fi
     --tmpfs "/var/run" \
     rancher/k3s:${K3S_VERSION} \
     agent \
-    --node-label "node.kubernetes.io/instance-type=rpi-3b+" \
+    --node-label "node.kubernetes.io/instance-type=rpi-3bplus" \
     --node-label "topology.kubernetes.io/region=${REGION}" \
     --node-label "topology.kubernetes.io/zone=${REGION}${zone}"
 }
