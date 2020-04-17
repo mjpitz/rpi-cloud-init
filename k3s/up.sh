@@ -16,7 +16,8 @@ function start_control_plane() {
   if [[ ! -z "${join_ip}" ]];  then
     k3s_url="https://${join_ip}:6443"
   else
-    cluster_init="1"
+    # don't set cluster init for now
+    cluster_init=""
   fi
 
 if [[ ! -z "${DEBUG}" ]]; then
@@ -146,5 +147,5 @@ function start_zone() {
 }
 
 start_zone a 192.168.1 50 54
-start_zone b 192.168.1 60 64 192.168.1.50
-start_zone c 192.168.1 70 74 192.168.1.50
+start_zone b 192.168.1 60 64 #192.168.1.50
+start_zone c 192.168.1 70 74 #192.168.1.50

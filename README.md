@@ -61,3 +61,42 @@ Once your configuration has been generated, you can start to work on flashing yo
 1. Using [balenaEtcher](https://www.balena.io/etcher), flash the base image onto your SD card.
 2. Once complete, copy the files from the generated host directory to the `system-boot` partition.
 3. After copying the files to `system-boot`.
+
+## 4 - Booting up
+
+Once all the flash drives are configured, you should be able to boot them up.
+I start wired for the initial boot up because I ran into issues with cloud-init not initializing properly going through wifi.
+I was able to reset cloud-init and force a rerun which resolved it.
+It just required a little more work.
+
+## 5 - Adding nodes as docker-machines
+
+I treat my laptop as a control plane to the nodes of my cluster.
+To do this, I use docker-machine and connect each machine.
+This provides a few conveniences for my home lab, but the biggest of which is convenience.
+I can easily introspect remote machines and docker processes from a single terminal.
+
+```bash
+$ ./docker-machine/connect.sh
+```
+
+## 6 - Sinning up k3s
+
+I toggle this between a single 15 node cluster and 3, 5 node clusters.
+Since much of the k3s HA is experimental, I occasionally need to toggle this configuration.
+This process uses the docker-machine from the previous step to spin up the k3s elements.
+
+```bash
+$ ./k3s/up.sh
+```
+
+## 7 - Setup GitOps
+
+I use gitops to configure common elements for each kubernetes cluster.
+This script sets up the fluxcd namespace with two processes: flux and helm-operator.
+The helm-operator makes deploying Helm charts to kubernetes easy using Custom Resource Definitions.
+Flux is a GitOps operator that makes managing declarative deployments easy.
+
+```bash
+$ ./gitops/up.sh
+```
