@@ -73,7 +73,7 @@ It just required a little more work.
 
 I treat my laptop as a control plane to the nodes of my cluster.
 To do this, I use docker-machine and connect each machine.
-This provides a few conveniences for my home lab, but the biggest of which is convenience.
+This provides a few benefits for my home lab, but the biggest of which is convenience.
 I can easily introspect remote machines and docker processes from a single terminal.
 
 ```bash
