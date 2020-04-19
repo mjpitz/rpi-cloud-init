@@ -12,3 +12,5 @@ spec:
   values:
     image:
       repository: k8s.gcr.io/kubernetes-dashboard-arm
+    enableSkipLogin: true
+    enableInsecureLogin: true
