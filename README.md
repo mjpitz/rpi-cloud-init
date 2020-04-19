@@ -60,7 +60,7 @@ Once your configuration has been generated, you can start to work on flashing yo
 
 1. Using [balenaEtcher](https://www.balena.io/etcher), flash the base image onto your SD card.
 2. Once complete, copy the files from the generated host directory to the `system-boot` partition.
-3. After copying the files to `system-boot`.
+3. After copying the files to `system-boot`, you're safe to eject the SD card.
 
 ## 4 - Booting up
 
