@@ -122,4 +122,10 @@ Flux is a GitOps controller that makes managing declarative deployments easy.
 
 ```bash
 $ ./gitops/up.sh
+
+$ kubectl get pods -n fluxcd
+NAME                              READY   STATUS    RESTARTS   AGE
+flux-memcached-8647794c5f-hp8n7   1/1     Running   0          44h
+helm-operator-884686cf6-ggxgl     1/1     Running   0          44h
+flux-5d6d8f486c-dm46d             1/1     Running   1          44h
 ```
