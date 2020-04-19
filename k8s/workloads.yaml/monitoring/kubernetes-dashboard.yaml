@@ -1,0 +1,14 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  namespace: monitoring
+  name: kubernetes-dashboard
+spec:
+  releaseName: kubernetes-dashboard
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    name: kubernetes-dashboard
+    version: 1.10.1
+  values:
+    image:
+      repository: k8s.gcr.io/kubernetes-dashboard-arm
