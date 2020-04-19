@@ -78,6 +78,24 @@ I can easily introspect remote machines and docker processes from a single termi
 
 ```bash
 $ ./docker-machine/connect.sh
+
+$ docker-machine ls
+NAME              ACTIVE   DRIVER    STATE     URL                       SWARM   DOCKER     ERRORS
+ip-192-168-1-50   -        generic   Running   tcp://192.168.1.50:2376           v19.03.8   
+ip-192-168-1-51   -        generic   Running   tcp://192.168.1.51:2376           v19.03.8   
+ip-192-168-1-52   -        generic   Running   tcp://192.168.1.52:2376           v19.03.8   
+ip-192-168-1-53   -        generic   Running   tcp://192.168.1.53:2376           v19.03.8   
+ip-192-168-1-54   -        generic   Running   tcp://192.168.1.54:2376           v19.03.8   
+ip-192-168-1-60   -        generic   Running   tcp://192.168.1.60:2376           v19.03.8   
+ip-192-168-1-61   -        generic   Running   tcp://192.168.1.61:2376           v19.03.8   
+ip-192-168-1-62   -        generic   Running   tcp://192.168.1.62:2376           v19.03.8   
+ip-192-168-1-63   -        generic   Running   tcp://192.168.1.63:2376           v19.03.8   
+ip-192-168-1-64   -        generic   Running   tcp://192.168.1.64:2376           v19.03.8   
+ip-192-168-1-70   -        generic   Running   tcp://192.168.1.70:2376           v19.03.8   
+ip-192-168-1-71   -        generic   Running   tcp://192.168.1.71:2376           v19.03.8   
+ip-192-168-1-72   -        generic   Running   tcp://192.168.1.72:2376           v19.03.8   
+ip-192-168-1-73   -        generic   Running   tcp://192.168.1.73:2376           v19.03.8   
+ip-192-168-1-74   -        generic   Running   tcp://192.168.1.74:2376           v19.03.8   
 ```
 
 ## 6 - Spinning up k3s
@@ -88,6 +106,11 @@ This process uses the docker-machine setup from the previous step to spin up the
 
 ```bash
 $ ./k3s/up.sh
+
+$ ls -1 ~/.kube/*.yaml
+~/.kube/us-central-1a.yaml
+~/.kube/us-central-1b.yaml
+~/.kube/us-central-1c.yaml
 ```
 
 ## 7 - Setup GitOps

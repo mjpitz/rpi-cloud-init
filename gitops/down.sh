@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e -o pipefail
 
-readonly namespace="${HELM_OPERATOR_NAMESPACE:-fluxcd}"
+readonly namespace="${NAMESPACE:-fluxcd}"
 
 helm uninstall --namespace ${namespace} helm-operator
 kubectl delete -f https://raw.githubusercontent.com/fluxcd/helm-operator/master/deploy/crds.yaml

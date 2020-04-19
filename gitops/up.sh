@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-readonly namespace="${HELM_OPERATOR_NAMESPACE:-fluxcd}"
+readonly namespace="${NAMESPACE:-fluxcd}"
 
 readonly flux_repository="${FLUX_REPOSITORY:-raspbernetes/flux}"
 readonly flux_tag="${FLUX_TAG:-1.18.0}"
