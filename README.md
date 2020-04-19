@@ -80,7 +80,7 @@ I can easily introspect remote machines and docker processes from a single termi
 $ ./docker-machine/connect.sh
 ```
 
-## 6 - Sinning up k3s
+## 6 - Spinning up k3s
 
 I toggle this between a single 15 node cluster and 3, 5 node clusters.
 Since much of the k3s HA is experimental, I occasionally need to toggle this configuration.
