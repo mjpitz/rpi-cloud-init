@@ -82,9 +82,9 @@ $ ./docker-machine/connect.sh
 
 ## 6 - Spinning up k3s
 
-I toggle this between a single 15 node cluster and 3, 5 node clusters.
 Since much of the k3s HA is experimental, I occasionally need to toggle this configuration.
-This process uses the docker-machine from the previous step to spin up the k3s elements.
+I'll sometimes run this as a single 15 node cluster or three 5 node clusters.
+This process uses the docker-machine setup from the previous step to spin up the k3s elements.
 
 ```bash
 $ ./k3s/up.sh
@@ -92,10 +92,10 @@ $ ./k3s/up.sh
 
 ## 7 - Setup GitOps
 
-I use gitops to configure common elements for each kubernetes cluster.
+I use gitops to configure common elements across all my clusters.
 This script sets up the fluxcd namespace with two processes: flux and helm-operator.
 The helm-operator makes deploying Helm charts to kubernetes easy using Custom Resource Definitions.
-Flux is a GitOps operator that makes managing declarative deployments easy.
+Flux is a GitOps controller that makes managing declarative deployments easy.
 
 ```bash
 $ ./gitops/up.sh
