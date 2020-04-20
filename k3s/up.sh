@@ -119,11 +119,7 @@ cat <<EOF
     --node-label "topology.kubernetes.io/region=${REGION}" \
     --node-label "topology.kubernetes.io/zone=${REGION}${zone}" \
     --kubelet-arg "${feature_gate_arg}" \
-    --kube-cloud-controller-manager-arg "${feature_gate_arg}" \
-    --kube-apiserver-arg "${feature_gate_arg}" \
-    --kube-controller-manager-arg "${feature_gate_arg}" \
-    --kube-proxy-arg "${feature_gate_arg}" \
-    --kube-scheduler-arg "${feature_gate_arg}"
+    --kube-proxy-arg "${feature_gate_arg}"
 EOF
 fi
 
@@ -142,11 +138,7 @@ fi
     --node-label "topology.kubernetes.io/region=${REGION}" \
     --node-label "topology.kubernetes.io/zone=${REGION}${zone}" \
     --kubelet-arg "${feature_gate_arg}" \
-    --kube-cloud-controller-manager-arg "${feature_gate_arg}" \
-    --kube-apiserver-arg "${feature_gate_arg}" \
-    --kube-controller-manager-arg "${feature_gate_arg}" \
-    --kube-proxy-arg "${feature_gate_arg}" \
-    --kube-scheduler-arg "${feature_gate_arg}"
+    --kube-proxy-arg "${feature_gate_arg}"
 }
 
 function start_zone() {
