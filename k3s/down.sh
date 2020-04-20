@@ -1,13 +1,5 @@
 #!/usr/bin/env bash
 
-function stop_control_plane() {
-  docker rm -f k3s-control
-}
-
-function stop_worker() {
-  docker rm -f k3s-exec
-}
-
 function stop_zone() {
   prefix="${1}"
   start=${2}
@@ -18,7 +10,7 @@ function stop_zone() {
   eval $(docker-machine env "${control_host}")
 
   echo "stopping control plane ${control_ip}"
-  stop_control_plane
+  docker rm -f k3s
   docker-machine ssh ${control_host} "sudo rm -rf /var/lib/rancher/k3s"
 
   for i in $(seq $(( start+1 )) ${end}); do
@@ -27,7 +19,7 @@ function stop_zone() {
     eval $(docker-machine env "${exec_host}")
 
     echo "stopping exec ${exec_ip}"
-    stop_worker
+    docker rm -f k3s
   done
 }
 

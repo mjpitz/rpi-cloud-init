@@ -5,6 +5,9 @@ export K3S_VERSION="v1.17.4-k3s1"
 export SECRET="$(uuidgen)"
 export REGION="us-central-1"
 
+readonly feature_gates="ServiceTopology=true,EndpointSlice=true"
+readonly feature_gate_arg="feature-gates=${feature_gates}"
+
 function start_control_plane() {
   zone="${1}"
   control_ip="${2}"
@@ -23,7 +26,7 @@ function start_control_plane() {
 if [[ ! -z "${DEBUG}" ]]; then
 cat <<EOF
   docker run -d \
-    --name "k3s-control" \
+    --name "k3s" \
     --network "host" \
     --restart "always" \
     -e "K3S_TOKEN=${SECRET}" \
@@ -39,12 +42,18 @@ cat <<EOF
     --disable traefik \
     --node-label "node.kubernetes.io/instance-type=rpi-4" \
     --node-label "topology.kubernetes.io/region=${REGION}" \
-    --node-label "topology.kubernetes.io/zone=${REGION}${zone}"
+    --node-label "topology.kubernetes.io/zone=${REGION}${zone}" \
+    --kubelet-arg "${feature_gate_arg}" \
+    --kube-cloud-controller-manager-arg "${feature_gate_arg}" \
+    --kube-apiserver-arg "${feature_gate_arg}" \
+    --kube-controller-manager-arg "${feature_gate_arg}" \
+    --kube-proxy-arg "${feature_gate_arg}" \
+    --kube-scheduler-arg "${feature_gate_arg}"
 EOF
 fi
 
   docker run -d \
-    --name "k3s-control" \
+    --name "k3s" \
     --network "host" \
     --restart "always" \
     -e "K3S_TOKEN=${SECRET}" \
@@ -60,7 +69,13 @@ fi
     --disable traefik \
     --node-label "node.kubernetes.io/instance-type=rpi-4" \
     --node-label "topology.kubernetes.io/region=${REGION}" \
-    --node-label "topology.kubernetes.io/zone=${REGION}${zone}"
+    --node-label "topology.kubernetes.io/zone=${REGION}${zone}" \
+    --kubelet-arg "${feature_gate_arg}" \
+    --kube-cloud-controller-manager-arg "${feature_gate_arg}" \
+    --kube-apiserver-arg "${feature_gate_arg}" \
+    --kube-controller-manager-arg "${feature_gate_arg}" \
+    --kube-proxy-arg "${feature_gate_arg}" \
+    --kube-scheduler-arg "${feature_gate_arg}"
 
   config_file="${HOME}/.kube/${REGION}${zone}.yaml"
   rm -rf ${config_file}
@@ -69,7 +84,7 @@ fi
     attempts=$(( attempts + 1 ))
     echo "attempt ${attempts}"
     sleep 5
-    docker cp k3s-control:/etc/rancher/k3s/k3s.yaml ${config_file}
+    docker cp k3s:/etc/rancher/k3s/k3s.yaml ${config_file}
   done
 
   if [[ ! -e ${config_file} ]]; then
@@ -90,7 +105,7 @@ function start_worker() {
 if [[ ! -z "${DEBUG}" ]]; then
 cat <<EOF
   docker run -d \
-    --name "k3s-exec" \
+    --name "k3s" \
     --network "host" \
     --restart "always" \
     -e "K3S_TOKEN=${SECRET}" \
@@ -102,12 +117,18 @@ cat <<EOF
     agent \
     --node-label "node.kubernetes.io/instance-type=rpi-3bplus" \
     --node-label "topology.kubernetes.io/region=${REGION}" \
-    --node-label "topology.kubernetes.io/zone=${REGION}${zone}"
+    --node-label "topology.kubernetes.io/zone=${REGION}${zone}" \
+    --kubelet-arg "${feature_gate_arg}" \
+    --kube-cloud-controller-manager-arg "${feature_gate_arg}" \
+    --kube-apiserver-arg "${feature_gate_arg}" \
+    --kube-controller-manager-arg "${feature_gate_arg}" \
+    --kube-proxy-arg "${feature_gate_arg}" \
+    --kube-scheduler-arg "${feature_gate_arg}"
 EOF
 fi
 
   docker run -d \
-    --name "k3s-exec" \
+    --name "k3s" \
     --network "host" \
     --restart "always" \
     -e "K3S_TOKEN=${SECRET}" \
@@ -119,7 +140,13 @@ fi
     agent \
     --node-label "node.kubernetes.io/instance-type=rpi-3bplus" \
     --node-label "topology.kubernetes.io/region=${REGION}" \
-    --node-label "topology.kubernetes.io/zone=${REGION}${zone}"
+    --node-label "topology.kubernetes.io/zone=${REGION}${zone}" \
+    --kubelet-arg "${feature_gate_arg}" \
+    --kube-cloud-controller-manager-arg "${feature_gate_arg}" \
+    --kube-apiserver-arg "${feature_gate_arg}" \
+    --kube-controller-manager-arg "${feature_gate_arg}" \
+    --kube-proxy-arg "${feature_gate_arg}" \
+    --kube-scheduler-arg "${feature_gate_arg}"
 }
 
 function start_zone() {
