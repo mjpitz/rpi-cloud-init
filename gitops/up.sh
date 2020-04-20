@@ -50,6 +50,7 @@ kubectl create secret generic flux-git-deploy \
     -o yaml | kubectl apply -f -
 
 helm upgrade -i flux fluxcd/flux \
+    --version 1.2.0 \
     --namespace ${namespace} \
     --set image.repository=${flux_repository} \
     --set image.tag=${flux_tag} \
@@ -63,6 +64,7 @@ echo "installing helm-operator"
 kubectl apply -f https://raw.githubusercontent.com/fluxcd/helm-operator/master/deploy/crds.yaml
 
 helm upgrade -i helm-operator fluxcd/helm-operator \
+    --version 1.0.1 \
     --namespace ${namespace} \
     --set image.repository=${helm_operator_repository} \
     --set image.tag=${helm_operator_tag} \
