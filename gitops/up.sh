@@ -24,6 +24,7 @@ flux:
 helm-operator:
     repository: ${helm_operator_repository}
     tag:        ${helm_operator_tag}
+
 ---
 
 EOF
