@@ -15,4 +15,4 @@ spec:
     enableSkipLogin: true
     enableInsecureLogin: true
     rbac:
-      clusterReadOnlyRole: true
+      clusterAdminRole: true
