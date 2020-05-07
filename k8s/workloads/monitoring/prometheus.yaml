@@ -1,23 +1,23 @@
-apiVersion: helm.fluxcd.io/v1
-kind: HelmRelease
-metadata:
-  namespace: monitoring
-  name: prometheus
-spec:
-  releaseName: prometheus
-  chart:
-    repository: https://kubernetes-charts.storage.googleapis.com/
-    name: prometheus
-    version: 11.1.5
-  values:
-    alertmanager:
-      enabled: true
-    kubeStateMetrics:
-      enabled: false
-    nodeExporter:
-      enabled: true
-    pushgateway:
-      enabled: true
-    server:
-      enabled: true
-      retention: 7d
+#apiVersion: helm.fluxcd.io/v1
+#kind: HelmRelease
+#metadata:
+#  namespace: monitoring
+#  name: prometheus
+#spec:
+#  releaseName: prometheus
+#  chart:
+#    repository: https://kubernetes-charts.storage.googleapis.com/
+#    name: prometheus
+#    version: 11.1.5
+#  values:
+#    alertmanager:
+#      enabled: true
+#    kubeStateMetrics:
+#      enabled: false
+#    nodeExporter:
+#      enabled: true
+#    pushgateway:
+#      enabled: true
+#    server:
+#      enabled: true
+#      retention: 7d
