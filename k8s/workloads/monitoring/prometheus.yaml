@@ -20,3 +20,4 @@ spec:
       enabled: true
     server:
       enabled: true
+      retention: 7d
