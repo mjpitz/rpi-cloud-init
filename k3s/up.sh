@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export K3S_VERSION="v1.17.4-k3s1"
+export K3S_VERSION="v1.18.4-k3s1"
 
 export SECRET="$(uuidgen)"
 export REGION="us-central-1"
