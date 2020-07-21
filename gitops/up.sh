@@ -43,23 +43,23 @@ fi
 
 kubectl create ns ${namespace}
 
-echo "installing flux"
-kubectl create secret generic flux-git-deploy \
-    --namespace ${namespace} \
-    --from-file identity=${flux_state_authkey} \
-    --dry-run \
-    -o yaml | kubectl apply -f -
-
-helm upgrade -i flux fluxcd/flux \
-    --version 1.2.0 \
-    --namespace ${namespace} \
-    --set image.repository=${flux_repository} \
-    --set image.tag=${flux_tag} \
-    --set git.url=${flux_state_repository} \
-    --set git.path=k8s \
-    --set git.readonly=true \
-    --set git.secretName=flux-git-deploy \
-    --set syncGarbageCollection.enabled=true
+#echo "installing flux"
+#kubectl create secret generic flux-git-deploy \
+#    --namespace ${namespace} \
+#    --from-file identity=${flux_state_authkey} \
+#    --dry-run \
+#    -o yaml | kubectl apply -f -
+#
+#helm upgrade -i flux fluxcd/flux \
+#    --version 1.2.0 \
+#    --namespace ${namespace} \
+#    --set image.repository=${flux_repository} \
+#    --set image.tag=${flux_tag} \
+#    --set git.url=${flux_state_repository} \
+#    --set git.path=k8s \
+#    --set git.readonly=true \
+#    --set git.secretName=flux-git-deploy \
+#    --set syncGarbageCollection.enabled=true
 
 echo "installing helm-operator"
 kubectl apply -f https://raw.githubusercontent.com/fluxcd/helm-operator/master/deploy/crds.yaml

@@ -1,4 +1,5 @@
 # rpi-cloud-init
+![Google Analytics](https://www.google-analytics.com/collect?v=1&tid=UA-172921913-1&cid=555&t=event&ec=repo&ea=open&dp=mjpitz%2Frpi-cloud-init&dt=mjpitz%2Frpi-cloud-init)
 
 This repository exists to support my at-home Raspberry Pi cluster.
 After seeing interest in similar repositories I've hosted, I decided to clean up my set up.

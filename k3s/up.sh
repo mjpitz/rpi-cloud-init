@@ -166,5 +166,5 @@ function start_zone() {
 }
 
 start_zone a 192.168.1 50 54
-start_zone b 192.168.1 60 64 #192.168.1.50
-start_zone c 192.168.1 70 74 #192.168.1.50
+#start_zone b 192.168.1 60 64 #192.168.1.50
+#start_zone c 192.168.1 70 74 #192.168.1.50
