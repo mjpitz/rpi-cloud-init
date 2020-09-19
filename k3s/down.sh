@@ -24,5 +24,5 @@ function stop_zone() {
 }
 
 stop_zone 192.168.1 50 54
-#stop_zone 192.168.1 60 64
-#stop_zone 192.168.1 70 74
+stop_zone 192.168.1 60 64
+stop_zone 192.168.1 70 74

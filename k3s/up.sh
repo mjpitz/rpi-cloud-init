@@ -1,12 +1,19 @@
 #!/usr/bin/env bash
 
-export K3S_VERSION="v1.18.4-k3s1"
+export K3S_VERSION="v1.18.9-k3s1"
 
 export SECRET="$(uuidgen)"
 export REGION="us-central-1"
 
 readonly feature_gates="ServiceTopology=true,EndpointSlice=true"
 readonly feature_gate_arg="feature-gates=${feature_gates}"
+
+which_sed="sed"
+
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  echo "on darwin, using gsed"
+  which_sed="gsed"
+fi
 
 function start_control_plane() {
   zone="${1}"
@@ -20,7 +27,7 @@ function start_control_plane() {
     k3s_url="https://${join_ip}:6443"
   else
     # don't set cluster init for now
-    cluster_init=""
+    cluster_init="1"
   fi
 
 if [[ ! -z "${DEBUG}" ]]; then
@@ -93,9 +100,10 @@ fi
   fi
 
   # simple replacements
-  sed -i "s/127.0.0.1/${control_ip}/g" ${config_file}
-  sed -i "s/localhost/${control_ip}/g" ${config_file}
-  sed -i "s/default/${REGION}${zone}/g" ${config_file}
+  
+  ${which_sed} -i "s/127.0.0.1/${control_ip}/g" ${config_file}
+  ${which_sed} -i "s/localhost/${control_ip}/g" ${config_file}
+  ${which_sed} -i "s/default/${REGION}${zone}/g" ${config_file}
 }
 
 function start_worker() {
@@ -166,5 +174,5 @@ function start_zone() {
 }
 
 start_zone a 192.168.1 50 54
-#start_zone b 192.168.1 60 64 #192.168.1.50
-#start_zone c 192.168.1 70 74 #192.168.1.50
+start_zone b 192.168.1 60 64 192.168.1.50
+start_zone c 192.168.1 70 74 192.168.1.50
