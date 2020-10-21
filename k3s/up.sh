@@ -26,7 +26,6 @@ function start_control_plane() {
   if [[ ! -z "${join_ip}" ]];  then
     k3s_url="https://${join_ip}:6443"
   else
-    # don't set cluster init for now
     cluster_init="1"
   fi
 
@@ -47,7 +46,6 @@ cat <<EOF
     server \
     --disable servicelb \
     --disable traefik \
-    --node-label "node.kubernetes.io/instance-type=rpi-4" \
     --node-label "topology.kubernetes.io/region=${REGION}" \
     --node-label "topology.kubernetes.io/zone=${REGION}${zone}" \
     --kubelet-arg "${feature_gate_arg}" \
@@ -74,7 +72,6 @@ fi
     server \
     --disable servicelb \
     --disable traefik \
-    --node-label "node.kubernetes.io/instance-type=rpi-4" \
     --node-label "topology.kubernetes.io/region=${REGION}" \
     --node-label "topology.kubernetes.io/zone=${REGION}${zone}" \
     --kubelet-arg "${feature_gate_arg}" \
@@ -123,7 +120,6 @@ cat <<EOF
     --tmpfs "/var/run" \
     rancher/k3s:${K3S_VERSION} \
     agent \
-    --node-label "node.kubernetes.io/instance-type=rpi-3bplus" \
     --node-label "topology.kubernetes.io/region=${REGION}" \
     --node-label "topology.kubernetes.io/zone=${REGION}${zone}" \
     --kubelet-arg "${feature_gate_arg}" \
@@ -142,7 +138,6 @@ fi
     --tmpfs "/var/run" \
     rancher/k3s:${K3S_VERSION} \
     agent \
-    --node-label "node.kubernetes.io/instance-type=rpi-3bplus" \
     --node-label "topology.kubernetes.io/region=${REGION}" \
     --node-label "topology.kubernetes.io/zone=${REGION}${zone}" \
     --kubelet-arg "${feature_gate_arg}" \
