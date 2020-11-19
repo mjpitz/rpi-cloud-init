@@ -10,9 +10,7 @@
 
 ---
 
-##
-## Manage users and groups
-##
+## Users and groups
 chpasswd:
   expire: false
   list:
@@ -26,47 +24,25 @@ users:
     ssh_authorized_keys:
     - "${SSH_PUBLIC_KEY}"
 
-##
-## Install or update packages
-##
-packages:
-  - apt-transport-https
-  - avahi-daemon
-  - ca-certificates
-  - curl
-  - gnupg-agent
-  - software-properties-common
-package_update: true
-package_upgrade: true
-package_reboot_if_required: true
-
-##
 ## Configure hostname
-##
 preserve_hostname: false
-fqdn: ${HOST}.local
+fqdn: ${HOST}
 hostname: ${HOST}
 
-##
-## Write out configuration files
-##
+## Preconfigure docker logging to rotate
 write_files:
   - path: /etc/docker/daemon.json
     content: |
       {
         "log-driver": "json-file",
         "log-opts": {
-          "max-size": "10m",    
-          "max-file": "3"    
+          "max-size": "10m",
+          "max-file": "3"
         }
       }
 
-##
-## Install Docker, force netplan and turn swapoff
-##
+## Turn swapoff
 runcmd:
   - swapoff -a
-  - curl -fsSL https://get.docker.com | bash
-  - usermod -aG docker ${ADMIN_USER}
 
 final_message: "The system is finally up after $UPTIME seconds"

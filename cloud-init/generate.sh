@@ -2,6 +2,9 @@
 
 export ADMIN_USER=${ADMIN_USER:-mjpitz}
 
+export NETWORK_IP=${NETWORK_IP:-192.168.4.1}
+readonly ip_prefix=${NETWORK_IP%.1}
+
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
 
 readonly default_ssh_public_key_path="${HOME}/.ssh/id_rsa.pub"
@@ -42,6 +45,6 @@ function generate_zone() {
   done
 }
 
-generate_zone 192.168.1 50 54
-generate_zone 192.168.1 60 64
-generate_zone 192.168.1 70 74
+generate_zone ${ip_prefix} 50 54
+generate_zone ${ip_prefix} 60 64
+generate_zone ${ip_prefix} 70 74

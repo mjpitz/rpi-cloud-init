@@ -17,9 +17,9 @@ wifis:
     dhcp4: false
     dhcp6: false
     addresses: [${STATIC_IP}/24]
-    gateway4: 192.168.1.1
+    gateway4: ${NETWORK_IP}
     nameservers:
-      addresses: [192.168.1.1, 8.8.8.8]
+      addresses: [${NETWORK_IP}]
     access-points:
       "${WIFI_SSID}":
         password: "${WIFI_PASSWORD}"
