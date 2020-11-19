@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+export NETWORK_IP=${NETWORK_IP:-192.168.4.1}
+readonly ip_prefix=${NETWORK_IP%.1}
+
 function reboot_host() {
   static_ip="${1}"
   host="ip-${static_ip//./-}"
@@ -19,6 +22,6 @@ function reboot_zone() {
     done
 }
 
-reboot_zone 192.168.1 50 54
-reboot_zone 192.168.1 60 64
-reboot_zone 192.168.1 70 74
+reboot_zone ${ip_prefix} 50 54
+reboot_zone ${ip_prefix} 60 64
+reboot_zone ${ip_prefix} 70 74
