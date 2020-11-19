@@ -2,6 +2,9 @@
 
 export ADMIN_USER=${ADMIN_USER:-mjpitz}
 
+export NETWORK_IP=${NETWORK_IP:-192.168.4.1}
+readonly ip_prefix=${NETWORK_IP%.1}
+
 readonly default_ssh_key_path="${HOME}/.ssh/id_rsa"
 readonly ssh_key_path="${SSH_KEY_PATH:-"$default_ssh_key_path"}"
 
@@ -42,6 +45,6 @@ function connect_zone() {
   done
 }
 
-connect_zone 192.168.1 50 54
-connect_zone 192.168.1 60 64
-connect_zone 192.168.1 70 74
+connect_zone ${ip_prefix} 50 54
+connect_zone ${ip_prefix} 60 64
+connect_zone ${ip_prefix} 70 74
