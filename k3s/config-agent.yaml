@@ -1,0 +1,7 @@
+node-label:
+  - topology.kubernetes.io/region=${REGION}
+  - topology.kubernetes.io/zone=${ZONE}
+kubelet-arg:
+  - feature-gates=ServiceTopology=true,EndpointSlice=true
+kube-proxy-arg:
+  - feature-gates=ServiceTopology=true,EndpointSlice=true

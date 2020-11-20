@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-export ADMIN_USER=${ADMIN_USER:-mjpitz}
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
 
 export NETWORK_IP=${NETWORK_IP:-192.168.4.1}
 readonly ip_prefix=${NETWORK_IP%.1}
 
-readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
+export ADMIN_USER=${ADMIN_USER:-mjpitz}
 
 readonly default_ssh_public_key_path="${HOME}/.ssh/id_rsa.pub"
 readonly ssh_public_key_path="${SSH_PUBLIC_KEY_PATH:-"$default_ssh_public_key_path"}"

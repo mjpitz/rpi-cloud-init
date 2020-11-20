@@ -1,0 +1,18 @@
+disable:
+  - servicelb
+  - traefik
+node-label:
+  - topology.kubernetes.io/region=${REGION}
+  - topology.kubernetes.io/zone=${ZONE}
+kubelet-arg:
+  - feature-gates=ServiceTopology=true,EndpointSlice=true
+kube-cloud-controller-manager-arg:
+  - feature-gates=ServiceTopology=true,EndpointSlice=true
+kube-apiserver-arg:
+  - feature-gates=ServiceTopology=true,EndpointSlice=true
+kube-controller-manager-arg:
+  - feature-gates=ServiceTopology=true,EndpointSlice=true
+kube-proxy-arg:
+  - feature-gates=ServiceTopology=true,EndpointSlice=true
+kube-scheduler-arg:
+  - feature-gates=ServiceTopology=true,EndpointSlice=true

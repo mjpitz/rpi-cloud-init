@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-export ADMIN_USER=${ADMIN_USER:-mjpitz}
-
 export NETWORK_IP=${NETWORK_IP:-192.168.4.1}
 readonly ip_prefix=${NETWORK_IP%.1}
+
+export ADMIN_USER=${ADMIN_USER:-mjpitz}
 
 readonly default_ssh_key_path="${HOME}/.ssh/id_rsa"
 readonly ssh_key_path="${SSH_KEY_PATH:-"$default_ssh_key_path"}"
