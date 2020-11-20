@@ -30,7 +30,7 @@ function generate_host() {
   envsubst < ${templates}/network-config.yaml > ${generated}/network-config
   envsubst < ${templates}/user-data.yaml > ${generated}/user-data
   envsubst < ${templates}/ssh > ${generated}/ssh
-  envsubst < ${templates}/nobtcmd.txt > ${generated}/nobtcmd.txt
+  envsubst < ${templates}/cmdline.txt > ${generated}/cmdline.txt
 }
 
 function generate_zone() {
