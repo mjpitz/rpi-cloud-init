@@ -12,10 +12,10 @@ I use [Ubuntu 18.04](https://ubuntu.com/download/raspberry-pi).
 ## 2 - Generate cloud-init
 
 Using `envsubst`, I created a few templates based on files I found in the `system-boot` partition.
-To generate a file for each node, simply run the `generate.sh` script.
+To generate a file for each node, simply run the `make` script.
 
 ```
-$ WIFI_SSID=name WIFI_PASSWORD=password ./cloud-init/generate.sh
+$ WIFI_SSID=name WIFI_PASSWORD=password make cloud-init
 generating 192.168.1.50
 generating 192.168.1.51
 generating 192.168.1.52
@@ -34,7 +34,7 @@ generating 192.168.1.74
 ```
 
 The output of this script is a directory full of configurations for your each host.
-Host names are computed from the static IP address and are prefixed with `ip-` as such.
+I compute host names from the assigned static IP address and prefix it with `ip-` as such.
 
 ```
 $ ls -1 cloud-init/generated/
@@ -78,7 +78,11 @@ This provides a few benefits for my home lab, but the biggest of which is conven
 I can easily introspect remote machines and docker processes from a single terminal.
 
 ```bash
+# run to purge the unattended-upgrades script
+$ ./docker-machine/purge.sh
+
 $ ./docker-machine/connect.sh
+# ...
 
 $ docker-machine ls
 NAME              ACTIVE   DRIVER    STATE     URL                       SWARM   DOCKER     ERRORS
@@ -106,7 +110,7 @@ I'll sometimes run this as a single 15 node cluster or three 5 node clusters.
 This process uses the docker-machine setup from the previous step to spin up the k3s elements.
 
 ```bash
-$ ./k3s/up.sh
+$ REGION=us-central-1 ./k3s/up.sh
 
 $ ls -1 ~/.kube/*.yaml
 ~/.kube/us-central-1a.yaml
@@ -114,19 +118,12 @@ $ ls -1 ~/.kube/*.yaml
 ~/.kube/us-central-1c.yaml
 ```
 
-## 7 - Setup GitOps
+## 7 - Deploying components
 
-I use gitops to configure common elements across all my clusters.
-This script sets up the fluxcd namespace with two processes: flux and helm-operator.
-The helm-operator makes deploying Helm charts to kubernetes easy using Custom Resource Definitions.
-Flux is a GitOps controller that makes managing declarative deployments easy.
+First, deploy cert-manager to give us easy access to certificate creation and management.
+Then, deploy consul and enable consul-connect with envoy 1.16 to support service mesh.
 
 ```bash
-$ ./gitops/up.sh
-
-$ kubectl get pods -n fluxcd
-NAME                              READY   STATUS    RESTARTS   AGE
-flux-memcached-8647794c5f-hp8n7   1/1     Running   0          44h
-helm-operator-884686cf6-ggxgl     1/1     Running   0          44h
-flux-5d6d8f486c-dm46d             1/1     Running   1          44h
+$ make k8s/cert-manager
+$ make k8s/consul
 ```
