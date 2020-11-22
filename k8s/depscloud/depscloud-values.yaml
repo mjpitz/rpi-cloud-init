@@ -1,0 +1,28 @@
+extractor:
+  service:
+    type: ClusterIP
+  podAnnotations:
+    consul.hashicorp.com/connect-inject: 'true'
+
+gateway:
+  service:
+    type: ClusterIP
+  podAnnotations:
+    consul.hashicorp.com/connect-inject: 'true'
+    consul.hashicorp.com/connect-service-upstreams: 'depscloud-extractor:9000,depscloud-tracker:9001'
+
+indexer:
+  schedule: "@daily"
+  podAnnotations:
+    consul.hashicorp.com/connect-inject: 'true'
+    consul.hashicorp.com/connect-service-upstreams: 'depscloud-extractor:9000,depscloud-tracker:9001'
+
+tracker:
+  service:
+    type: ClusterIP
+  podAnnotations:
+    consul.hashicorp.com/connect-inject: 'true'
+    consul.hashicorp.com/connect-service-upstreams: 'postgresql-dev:5432'
+  storage:
+    driver: postgres
+    address: postgres://depscloud:depscloud@postgresql-dev:5432/depsclouddb
