@@ -45,6 +45,7 @@ function generate_zone() {
   done
 }
 
+generate_zone ${ip_prefix} 30 30
 generate_zone ${ip_prefix} 50 54
 generate_zone ${ip_prefix} 60 64
 generate_zone ${ip_prefix} 70 74
