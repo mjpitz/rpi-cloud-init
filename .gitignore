@@ -1,1 +1,3 @@
 cloud-init/generated/
+k8s/**/*.lock
+k8s/**/charts/
