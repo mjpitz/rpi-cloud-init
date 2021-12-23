@@ -28,5 +28,5 @@ function stop_zone() {
 }
 
 stop_zone ${ip_prefix} 50 54
-#stop_zone ${ip_prefix} 60 64
+stop_zone ${ip_prefix} 60 64
 #stop_zone ${ip_prefix} 70 74

@@ -5,7 +5,7 @@ readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && p
 export NETWORK_IP=${NETWORK_IP:-192.168.4.1}
 readonly ip_prefix=${NETWORK_IP%.1}
 
-export K3S_VERSION="v1.19.1-k3s1"
+export K3S_VERSION="${K3S_VERSION:-v1.20.14-k3s1}"
 
 export SECRET="$(uuidgen)"
 export REGION="${REGION:-mjpitz}"
@@ -126,4 +126,4 @@ function start_zone() {
 
 start_zone 1 ${ip_prefix} 50 54
 start_zone 2 ${ip_prefix} 60 64 #192.168.1.50
-start_zone 3 ${ip_prefix} 70 74 #192.168.1.50
+#start_zone 3 ${ip_prefix} 70 74 #192.168.1.50
