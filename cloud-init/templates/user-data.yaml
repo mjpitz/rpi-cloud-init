@@ -41,8 +41,14 @@ write_files:
         }
       }
 
-## Turn swapoff
+# Disable until we set up the network
+apt_upgrade: false
+apt_update: false
+
 runcmd:
-  - swapoff -a
+  - swapoff -a          # kubernetes needs swap off
+  - netplan apply       # force application of network-config
+  - apt-get update -y   # now update
+  - apt-get upgrade -y  # and upgrade
 
 final_message: "The system is finally up after $UPTIME seconds"
