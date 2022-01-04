@@ -1,0 +1,15 @@
+aetherfs:
+  kind: DaemonSet
+  image:
+    repository: mjpitz/aetherfs
+    tag: latest
+
+  service:
+    type: NodePort
+    http:
+      nodePort: 32348
+    nfs:
+      enabled: true
+      nodePort: 32349
+    ui:
+      enabled: true

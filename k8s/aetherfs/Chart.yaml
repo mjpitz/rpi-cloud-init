@@ -1,0 +1,8 @@
+apiVersion: v2
+type: application
+name: aetherfs
+version: 0.0.0
+dependencies:
+  - repository: file://../../../aetherfs/deploy/helm/aetherfs
+    name: aetherfs
+    version: 0.0.0
