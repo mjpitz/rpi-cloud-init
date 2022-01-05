@@ -2,14 +2,13 @@ aetherfs:
   kind: DaemonSet
   image:
     repository: mjpitz/aetherfs
-    tag: latest
+    tag: 22.02-rc1
 
   service:
-    type: NodePort
-    http:
-      nodePort: 32348
+    type: ClusterIP
+    clusterIP: 10.43.7.37
+
     nfs:
       enabled: true
-      nodePort: 32349
     ui:
       enabled: true
