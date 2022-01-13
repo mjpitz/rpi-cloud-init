@@ -1,0 +1,26 @@
+aetherfs-datasets:
+  nfs:
+    server: 10.43.7.37
+    port: 2049
+  readonly: true
+
+grafana:
+  rbac:
+    pspEnabled: false
+  extraVolumeMounts:
+    - name: datasets
+      mountPath: /var/aetherfs
+      readOnly: true
+      existingClaim: grafana-aetherfs-datasets
+  plugins:
+    - frser-sqlite-datasource
+  service:
+    type: "NodePort"
+    port: 8080
+  adminUser: admin
+  adminPassword: admin
+  securityContext:
+    runAsUser: 0
+    runAsGroup: 0
+    fsGroup: 0
+
