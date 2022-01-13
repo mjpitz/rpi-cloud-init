@@ -5,6 +5,7 @@ aetherfs-datasets:
   readonly: true
 
 grafana:
+  replicas: 3
   rbac:
     pspEnabled: false
   extraVolumeMounts:
@@ -23,4 +24,3 @@ grafana:
     runAsUser: 0
     runAsGroup: 0
     fsGroup: 0
-

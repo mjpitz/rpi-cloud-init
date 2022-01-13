@@ -23,3 +23,6 @@ k8s/cert-manager: .k8s/cert-manager
 .k8s/cert-manager:
 	make .k8s NAMESPACE=cert-manager NAME=cert-manager CHART=./k8s/cert-manager VALUES=values
 
+k8s/grafana: .k8s/grafana
+.k8s/grafana:
+	make .k8s NAMESPACE=default NAME=grafana CHART=./k8s/grafana VALUES=values

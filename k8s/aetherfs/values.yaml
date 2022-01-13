@@ -8,6 +8,9 @@ aetherfs:
     type: ClusterIP
     clusterIP: 10.43.7.37
 
+    topologyConstraints:
+      enabled: true
+
     nfs:
       enabled: true
     ui:
