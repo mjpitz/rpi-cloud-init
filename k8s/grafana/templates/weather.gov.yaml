@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: weather-datasource
+  labels:
+    grafana_datasource: "1"
+data:
+  datasource.yaml: |-
+    apiVersion: 1
+    datasources:
+      - name: weather.gov
+        type: frser-sqlite-datasource
+        access: proxy
+        isDefault: true
+        editable: false
+        jsonData:
+          path: /var/aetherfs/weather.gov/latest/db.sqlite
+          pathOptions: _journal=wal&mode=ro&immutable=true

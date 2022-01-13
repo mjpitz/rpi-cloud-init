@@ -17,10 +17,30 @@ grafana:
     - frser-sqlite-datasource
   service:
     type: "NodePort"
-    port: 8080
+    port: 3000
   adminUser: admin
   adminPassword: admin
   securityContext:
     runAsUser: 0
     runAsGroup: 0
     fsGroup: 0
+  grafana.ini:
+    server:
+      root_url: http://192.168.4.60:31814/
+      disable_initial_admin_creation: true
+    auth:
+      disable_login_form: true
+    auth.github:
+      enabled: true
+      allow_sign_up: true
+      scopes: user:email,read:org
+      auth_url: https://github.com/login/oauth/authorize
+      token_url: https://github.com/login/oauth/access_token
+      api_url: https://api.github.com/user
+    users:
+      auto_assign_org_role: Editor
+  sidecar:
+    dashboards:
+      enabled: true
+    datasources:
+      enabled: true
