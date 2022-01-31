@@ -4,15 +4,8 @@ disable:
 node-label:
   - topology.kubernetes.io/region=${REGION}
   - topology.kubernetes.io/zone=${ZONE}
-kubelet-arg:
-  - feature-gates=ServiceTopology=true,EndpointSlice=true
-kube-cloud-controller-manager-arg:
-  - feature-gates=ServiceTopology=true,EndpointSlice=true
-kube-apiserver-arg:
-  - feature-gates=ServiceTopology=true,EndpointSlice=true
-kube-controller-manager-arg:
-  - feature-gates=ServiceTopology=true,EndpointSlice=true
-kube-proxy-arg:
-  - feature-gates=ServiceTopology=true,EndpointSlice=true
-kube-scheduler-arg:
-  - feature-gates=ServiceTopology=true,EndpointSlice=true
+tls-san:
+  - 192.168.4.51
+  - ip-192-168-4-51
+  - 192.168.4.61
+  - ip-192-168-4-61

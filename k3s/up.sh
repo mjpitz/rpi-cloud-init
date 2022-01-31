@@ -5,9 +5,13 @@ readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && p
 export NETWORK_IP=${NETWORK_IP:-192.168.4.1}
 readonly ip_prefix=${NETWORK_IP%.1}
 
-export K3S_VERSION="${K3S_VERSION:-v1.20.14-k3s1}"
+export K3S_VERSION="${K3S_VERSION:-v1.23.2-k3s1}"
 
-export SECRET="$(uuidgen)"
+if [[ -z "${K3S_TOKEN}" ]]; then
+  K3S_TOKEN=$(uuidgen)
+fi
+export K3S_TOKEN
+
 export REGION="${REGION:-mjpitz}"
 
 which_sed="sed"
@@ -26,28 +30,21 @@ function prep_node() {
   docker-machine ssh ${name} "echo '${config_blob}' | base64 --decode | sudo tee /etc/rancher/k3s/config.yaml 1>/dev/null"
 }
 
+# temporarily removing
+# readonly datastore_endpoint="postgres://root:@192.168.4.50:26257/k3s?sslmode=disable"
+# -e "K3S_DATASTORE_ENDPOINT=${datastore_endpoint}"
+
 function start_server() {
   zone="${1}"
   server_ip="${2}"
-  join_ip="${3}"
-
-  k3s_url=""
-  cluster_init=""
-
-  if [[ ! -z "${join_ip}" ]];  then
-    k3s_url="https://${join_ip}:6443"
-  else
-    cluster_init=""
-  fi
 
   docker run -d \
     --name "k3s" \
     --network "host" \
     --restart "always" \
-    -e "K3S_TOKEN=${SECRET}" \
-    -e "K3S_URL=${k3s_url}" \
-    -e "K3S_CLUSTER_INIT=${cluster_init}" \
+    -e "K3S_TOKEN=${K3S_TOKEN}" \
     -v "/etc/rancher/k3s:/etc/rancher/k3s" \
+    -v "/lib/modules:/lib/modules" \
     -v "/var/lib/rancher/k3s:/var/lib/rancher/k3s" \
     --privileged \
     --tmpfs "/run" \
@@ -84,9 +81,10 @@ function start_worker() {
     --name "k3s" \
     --network "host" \
     --restart "always" \
-    -e "K3S_TOKEN=${SECRET}" \
+    -e "K3S_TOKEN=${K3S_TOKEN}" \
     -e "K3S_URL=https://${server_ip}:6443" \
     -v "/etc/rancher/k3s/config.yaml:/etc/rancher/k3s/config.yaml" \
+    -v "/lib/modules:/lib/modules" \
     --privileged \
     --tmpfs "/run" \
     --tmpfs "/var/run" \
@@ -99,7 +97,6 @@ function start_zone() {
   prefix="${2}"
   start=${3}
   end=${4}
-  join_ip="${5}"
 
   server_ip="${prefix}.${start}"
   server_host="ip-${server_ip//./-}"
@@ -109,7 +106,7 @@ function start_zone() {
 
   eval $(docker-machine env "${server_host}")
   echo "starting server ${server_ip}"
-  start_server "${zone}" "${server_ip}" "${join_ip}"
+  start_server "${zone}" "${server_ip}"
 
   for i in $(seq $(( start+1 )) ${end}); do
     agent_ip="${prefix}.${i}"
@@ -124,6 +121,6 @@ function start_zone() {
   done
 }
 
-start_zone 1 ${ip_prefix} 50 54
-start_zone 2 ${ip_prefix} 60 64 #192.168.1.50
-#start_zone 3 ${ip_prefix} 70 74 #192.168.1.50
+start_zone 1 ${ip_prefix} 51 54
+start_zone 2 ${ip_prefix} 61 64
+#start_zone 3 ${ip_prefix} 71 74

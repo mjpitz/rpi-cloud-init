@@ -27,6 +27,6 @@ function stop_zone() {
   docker-machine ssh ${control_host} "sudo rm -rf /etc/rancher/k3s /var/lib/rancher/k3s"
 }
 
-stop_zone ${ip_prefix} 50 54
-stop_zone ${ip_prefix} 60 64
-#stop_zone ${ip_prefix} 70 74
+stop_zone ${ip_prefix} 51 54
+stop_zone ${ip_prefix} 61 64
+#stop_zone ${ip_prefix} 71 74
