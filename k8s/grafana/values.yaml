@@ -1,23 +1,13 @@
-aetherfs-datasets:
-  nfs:
-    server: 10.43.7.37
-    port: 2049
-  readonly: true
-
 grafana:
-  replicas: 3
+  replicas: 1
   rbac:
     pspEnabled: false
-  extraVolumeMounts:
-    - name: datasets
-      mountPath: /var/aetherfs
-      readOnly: true
-      existingClaim: grafana-aetherfs-datasets
   plugins:
     - frser-sqlite-datasource
   service:
     type: "NodePort"
     port: 3000
+    nodePort: 31814
   adminUser: admin
   adminPassword: admin
   securityContext:
@@ -26,7 +16,7 @@ grafana:
     fsGroup: 0
   grafana.ini:
     server:
-      root_url: http://192.168.4.60:31814/
+      root_url: http://192.168.4.51:31814/
       disable_initial_admin_creation: true
     auth:
       disable_login_form: true
@@ -38,7 +28,7 @@ grafana:
       token_url: https://github.com/login/oauth/access_token
       api_url: https://api.github.com/user
     users:
-      auto_assign_org_role: Editor
+      auto_assign_org_role: Admin
   sidecar:
     dashboards:
       enabled: true

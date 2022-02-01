@@ -3,9 +3,6 @@ type: application
 name: grafana
 version: 0.0.0
 dependencies:
-  - repository: file://../../../aetherfs/deploy/helm/aetherfs-datasets
-    name: aetherfs-datasets
-    version: 0.0.0
   - repository: https://grafana.github.io/helm-charts
     name: grafana
     version: 6.20.5

@@ -1,4 +1,13 @@
-crdb/.terraform/
+# cloud-init
+cloud-init/generated/
+
+# terraform
+.terraform/
 .terraform.lock.hcl
 terraform.tfstate
 terraform.tfstate.backup
+
+# k8s
+*.tgz
+Chart.lock
+secrets.yaml

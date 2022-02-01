@@ -1,18 +1,20 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: weather-datasource
+  name: homestead-datasource
   labels:
     grafana_datasource: "1"
 data:
   datasource.yaml: |-
     apiVersion: 1
     datasources:
-      - name: weather.gov
-        type: frser-sqlite-datasource
-        access: proxy
-        isDefault: true
-        editable: false
+      - name: homestead
+        type: postgres
+        url: crdb.default.svc.cluster.local:26257
+        database: homestead
+        user: root
+        secureJsonData:
+          password: ''
         jsonData:
-          path: /var/aetherfs/weather.gov/latest/db.sqlite
-          pathOptions: _journal=wal&mode=ro&immutable=true
+          sslmode: disable
+          postgresVersion: 1200
