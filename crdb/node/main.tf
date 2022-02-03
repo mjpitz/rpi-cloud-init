@@ -26,6 +26,6 @@ resource "docker_container" "crdb" {
 
   volumes {
     container_path = "/cockroach/cockroach-data"
-    host_path      = "/data/cockroach"
+    host_path      = "/data/drive-1"
   }
 }
