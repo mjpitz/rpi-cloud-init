@@ -45,6 +45,7 @@ function connect_zone() {
   done
 }
 
+connect_zone ${ip_prefix} 30 30
 connect_zone ${ip_prefix} 50 54
 connect_zone ${ip_prefix} 60 64
 connect_zone ${ip_prefix} 70 74

@@ -4,8 +4,3 @@ disable:
 node-label:
   - topology.kubernetes.io/region=${REGION}
   - topology.kubernetes.io/zone=${ZONE}
-tls-san:
-  - 192.168.4.51
-  - ip-192-168-4-51
-  - 192.168.4.61
-  - ip-192-168-4-61

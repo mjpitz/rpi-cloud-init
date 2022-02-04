@@ -98,17 +98,7 @@ function start_zone() {
   start=${3}
   end=${4}
 
-  server_ip="${prefix}.${start}"
-  server_host="ip-${server_ip//./-}"
-
-  echo "preparing server ${server_ip}"
-  prep_node "${server_host}" "server" "${zone}"
-
-  eval $(docker-machine env "${server_host}")
-  echo "starting server ${server_ip}"
-  start_server "${zone}" "${server_ip}"
-
-  for i in $(seq $(( start+1 )) ${end}); do
+  for i in $(seq ${start} ${end}); do
     agent_ip="${prefix}.${i}"
     agent_host="ip-${agent_ip//./-}"
 
@@ -120,6 +110,16 @@ function start_zone() {
     start_worker "${zone}" "${server_ip}"
   done
 }
+
+server_ip="${ip_prefix}.30"
+server_host="ip-${server_ip//./-}"
+
+echo "preparing server ${server_ip}"
+prep_node "${server_host}" "server" "0"
+
+eval $(docker-machine env "${server_host}")
+echo "starting server ${server_ip}"
+start_server "" "${server_ip}"
 
 start_zone 1 ${ip_prefix} 51 54
 start_zone 2 ${ip_prefix} 61 64
