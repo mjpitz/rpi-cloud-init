@@ -11,7 +11,8 @@ resource "docker_container" "crdb" {
     "--join=${join(",", var.join)}",
     "--listen-addr=0.0.0.0",
     "--http-addr=0.0.0.0",
-    "--advertise-addr=${var.ip}:26257"
+    "--advertise-addr=${var.ip}:26257",
+    "--store=/data/drive-1",
   ]
 
   ports {
@@ -25,7 +26,7 @@ resource "docker_container" "crdb" {
   }
 
   volumes {
-    container_path = "/cockroach/cockroach-data"
+    container_path = "/data/drive-1"
     host_path      = "/data/drive-1"
   }
 }
