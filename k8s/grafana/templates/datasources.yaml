@@ -1,0 +1,14 @@
+{{- if .Values.datasources }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: datasources
+  labels:
+    grafana_datasource: "1"
+data:
+  datasource.yaml: |-
+    apiVersion: 1
+    datasources:
+      {{- .Values.datasources | toYaml | nindent 6 }}
+
+{{- end }}

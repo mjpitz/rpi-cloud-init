@@ -1,3 +1,5 @@
+datasources: []
+
 grafana:
   replicas: 1
   rbac:
