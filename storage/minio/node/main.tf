@@ -6,6 +6,7 @@ resource "docker_container" "minio" {
   restart      = "unless-stopped"
 
   env = [
+    "MINIO_PROMETHEUS_AUTH_TYPE=public",
     "MINIO_CONSOLE_ADDRESS=:9090",
     "MINIO_ROOT_USER=${var.user}",
     "MINIO_ROOT_PASSWORD=${var.password}",

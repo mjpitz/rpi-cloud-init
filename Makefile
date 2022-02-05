@@ -44,4 +44,7 @@ k8s/cert-manager:
 k8s/grafana:
 	make .helm NAMESPACE=monitoring NAME=grafana CHART=./compute/workloads/grafana VALUES=secrets
 
-k8s: k8s/services k8s/cert-manager k8s/grafana
+k8s/prometheus:
+	make .helm NAMESPACE=monitoring NAME=prometheus CHART=./compute/workloads/prometheus
+
+k8s: k8s/services k8s/cert-manager k8s/prometheus k8s/grafana

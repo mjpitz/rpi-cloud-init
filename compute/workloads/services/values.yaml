@@ -9,6 +9,11 @@ services:
         port: 8080
       - name: crdb
         port: 26257
+    prometheus:
+      enabled: true
+      path: "/_status/vars"
+      port: 8080
+
   - name: minio
     ips:
       - 192.168.4.30
@@ -17,3 +22,7 @@ services:
         port: 9090
       - name: s3
         port: 9000
+    prometheus:
+      enabled: true
+      path: "/minio/v2/metrics/cluster"
+      port: 9000

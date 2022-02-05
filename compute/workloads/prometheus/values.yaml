@@ -1,0 +1,9 @@
+prometheus:
+  alertmanager:
+    enabled: false
+  pushgateway:
+    enabled: false
+  serverFiles:
+    prometheus.yml:
+      scrape_configs:
+  extraScrapeConfigs: []

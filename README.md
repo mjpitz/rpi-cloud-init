@@ -28,6 +28,7 @@ My goal is to build a modular, relatively low-power system.
  - Provisioning
    - [cloud-init](cloud-init) - Machine initialization
    - [terraform](https://www.terraform.io/) - Declarative provisioning
+   - [cert-manager](compute/workloads/cert-manager) - Certificate management
  - Storage
    - [CockroachDB](storage/crdb) - General purpose, relational database
    - [MinIO](storage/minio) - General purpose, small-blob storage
@@ -36,12 +37,13 @@ My goal is to build a modular, relatively low-power system.
    - [k3s](compute/k3s) - General purpose, compute cluster
    - To do:
      - containerd - Containerization
+ - Observability
+   - [prometheus](compute/workloads/prometheus) - Data collection and storage
+   - [grafana](compute/workloads/grafana) - Data visualization
 
 <a href="assets/cluster.png"><img alt="cluster diagram" src="assets/cluster.png" width="600"/></a>
 
 ## Workloads
 
- - [cert-manager](compute/workloads/cert-manager) - Certificate management
- - [grafana](compute/workloads/grafana) - Data visualization
- - [homestead](https://github.com/mjpitz/homestead) - Index builders that help manage my homestead
  - [services](compute/workloads/services) - Aliases for out-of-cluster services
+ - [homestead](https://github.com/mjpitz/homestead) - Index builders that help manage my homestead
