@@ -24,6 +24,8 @@ This repository supports the initialization of my at-home cloud.
    - To do:
      - containerd - Containerization
 
+<a href="assets/cluster.png"><img alt="cluster diagram" src="assets/cluster.png" width="600"/></a>
+
 ## Workloads
 
  - [cert-manager](compute/workloads/cert-manager) - Certificate management
