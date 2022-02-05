@@ -1,0 +1,19 @@
+services:
+  - name: crdb
+    ips:
+      - 192.168.4.50
+      - 192.168.4.60
+      - 192.168.4.70
+    ports:
+      - name: http
+        port: 8080
+      - name: crdb
+        port: 26257
+  - name: minio
+    ips:
+      - 192.168.4.30
+    ports:
+      - name: http
+        port: 9090
+      - name: s3
+        port: 9000

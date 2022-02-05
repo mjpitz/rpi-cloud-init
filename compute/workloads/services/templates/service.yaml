@@ -1,0 +1,30 @@
+{{- range $service := .Values.services }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $service.name }}
+spec:
+  ports:
+    {{- range $port := $service.ports }}
+    - protocol: {{ $port.protocol | default "TCP" }}
+      port: {{ $port.port }}
+      targetPort: {{ $port.port }}
+      name: {{ $port.name }}
+    {{- end }}
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: {{ $service.name }}
+subsets:
+  - addresses:
+      {{- range $ip := $service.ips }}
+      - ip: {{ $ip }}
+      {{- end }}
+    ports:
+      {{- range $port := $service.ports }}
+      - port: {{ $port.port }}
+        name: {{ $port.name }}
+      {{- end }}
+{{- end }}
