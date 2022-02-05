@@ -7,8 +7,7 @@ it easy to introspect from my laptop. This is managed using terraform as it prov
 tear down the entire cluster. My home systems can tolerate a little downtime for maintenance. 
 
 ```
-# initialize the terraform setup
-cd crdb
+cd storage/crdb
 
 terraform init
 

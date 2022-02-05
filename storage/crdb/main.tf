@@ -15,7 +15,7 @@ provider "docker" {
 }
 
 module "ip-192-168-4-50" {
-  source    = "./node"
+  source    = "node"
   providers = {
     docker = docker.ip-192-168-4-50
   }
@@ -34,7 +34,7 @@ provider "docker" {
 }
 
 module "ip-192-168-4-60" {
-  source    = "./node"
+  source    = "node"
   providers = {
     docker = docker.ip-192-168-4-60
   }
@@ -53,7 +53,7 @@ provider "docker" {
 }
 
 module "ip-192-168-4-70" {
-  source    = "./node"
+  source    = "node"
   providers = {
     docker = docker.ip-192-168-4-70
   }
