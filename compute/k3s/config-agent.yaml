@@ -1,3 +1,0 @@
-node-label:
-  - topology.kubernetes.io/region=${REGION}
-  - topology.kubernetes.io/zone=${ZONE}

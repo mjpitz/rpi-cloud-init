@@ -25,6 +25,11 @@ minio:
 
 # COMPUTE
 
+k3s:
+	cd compute/k3s && \
+		terraform init && \
+		terraform apply
+
 # WORKLOADS
 
 k8s/services:
