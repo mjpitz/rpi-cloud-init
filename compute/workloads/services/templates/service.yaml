@@ -4,6 +4,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ $service.name }}
+  {{- if $service.prometheus.enabled }}
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: {{ $service.prometheus.path | default "/metrics" }}
+    prometheus.io/port: {{ $service.prometheus.port | quote }}
+  {{- end }}
 spec:
   ports:
     {{- range $port := $service.ports }}
