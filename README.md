@@ -30,11 +30,11 @@ My goal is to build a modular, relatively low-power system.
    - [terraform](https://www.terraform.io/) - Declarative provisioning
    - [cert-manager](compute/workloads/cert-manager) - Certificate management
  - Storage
-   - [CockroachDB](storage/crdb) - General purpose, relational database
-   - [MinIO](storage/minio) - General purpose, small-blob storage
+   - [CockroachDB](storage/crdb) - Relational database management system
+   - [MinIO](storage/minio) - Erasure coded, small-blob storage
  - Compute
    - [docker](https://www.docker.com/) / [docker-machine](scripts/docker-machine) - Containerization (deprecate)
-   - [k3s](compute/k3s) - General purpose, compute cluster
+   - [k3s](compute/k3s) - Extendable compute cluster
    - To do:
      - containerd - Containerization
  - Observability
@@ -46,4 +46,6 @@ My goal is to build a modular, relatively low-power system.
 ## Workloads
 
  - [services](compute/workloads/services) - Aliases for out-of-cluster services
+ - [redis](https://redis.io) - General purpose, caching solution
  - [homestead](https://github.com/mjpitz/homestead) - Index builders that help manage my homestead
+ - [varys](https://github.com/mjpitz/varys) - Secret engine and privileged access management
