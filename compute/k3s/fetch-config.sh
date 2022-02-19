@@ -6,7 +6,7 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
   which_sed="gsed"
 fi
 
-readonly REGION="${REGION:-mjpitz}"
+readonly REGION="${REGION:-mya}"
 readonly SERVER_IP="${SERVER_IP:-192.168.4.30}"
 readonly SERVER_HOST="ip-${SERVER_IP//./-}"
 

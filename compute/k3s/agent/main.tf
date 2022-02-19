@@ -14,17 +14,29 @@ resource "null_resource" "config" {
   }
 }
 
+data "docker_registry_image" "k3s" {
+  name = var.k3s_image
+}
+
+resource "docker_image" "k3s" {
+  name          = data.docker_registry_image.k3s.name
+  keep_locally  = true
+  pull_triggers = [data.docker_registry_image.k3s.sha256_digest]
+}
+
 resource "docker_container" "k3s" {
   depends_on = [null_resource.config]
 
   name         = "k3s"
   hostname     = var.hostname
   network_mode = "host"
-  image        = "rancher/k3s:v1.23.2-k3s1"
+  image        = docker_image.k3s.name
   restart      = "unless-stopped"
 
   command = [
     "agent",
+    "--node-name",
+    var.hostname,
   ]
 
   publish_all_ports = true

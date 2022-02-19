@@ -23,3 +23,7 @@ variable "zone" {
   type    = string
   default = ""
 }
+
+variable "k3s_image" {
+  type = string
+}
