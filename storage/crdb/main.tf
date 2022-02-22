@@ -1,3 +1,14 @@
+terraform {
+  backend "s3" {
+    skip_credentials_validation = true
+    skip_metadata_api_check = true
+    endpoint = "https://nyc3.digitaloceanspaces.com"
+    region = "us-east-1"
+    bucket = "mya-tfstate"
+    key = "infra/home/storage/crdb/terraform.tfstate"
+  }
+}
+
 locals {
   join = [
     "192.168.4.50",
@@ -15,7 +26,7 @@ provider "docker" {
 }
 
 module "ip-192-168-4-50" {
-  source    = "node"
+  source    = "./node"
   providers = {
     docker = docker.ip-192-168-4-50
   }
@@ -34,7 +45,7 @@ provider "docker" {
 }
 
 module "ip-192-168-4-60" {
-  source    = "node"
+  source    = "./node"
   providers = {
     docker = docker.ip-192-168-4-60
   }
@@ -53,7 +64,7 @@ provider "docker" {
 }
 
 module "ip-192-168-4-70" {
-  source    = "node"
+  source    = "./node"
   providers = {
     docker = docker.ip-192-168-4-70
   }

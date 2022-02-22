@@ -27,7 +27,7 @@ data "docker_registry_image" "k3s" {
 resource "docker_image" "k3s" {
   name          = data.docker_registry_image.k3s.name
   keep_locally  = true
-  pull_triggers = [data.docker_registry_image.k3s.sha256_digest]
+  pull_triggers = [data.docker_registry_image.k3s.name]
 }
 
 resource "docker_container" "k3s" {
